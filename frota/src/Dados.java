@@ -1,75 +1,71 @@
 public class Dados {
-    // Dados veiculo
-    private double chassis;
-    private double pesoBruto;
-    private double roboque;
-    private double outrosEquipamentos;
-    private double velocidadeOperacionalIda;
-    private double velocidadeOperacionalVolta;
 
-    // Dados operacionais
-    private double tempoDescarga;
-    private double tempoCarga;
+    private double chassi;
+    private double pesoBruto;
+    private double reboque;
+    private double outrosEqui;
+    private double velOperacionalIda;
+    private double velOperacionalVolta;
+    private double tempoD;
+    private double tempoC;
     private double distanciaPerIda;
     private double distanciaPerVolta;
     private double jornada;
-    private double tempoDiario;
+    private double tDiario;
     private double diasUteis;
     private double manutencao;
-
-    // Dados da carga
     private String tipo;
-    private double quantidadeCarga;
+    private double qntd;
 
-    public Dados ( double chassis , double pesoBruto, double roboque, double outrosEquipamentos, double velocidadeOperacionalIda, double velocidadeOperacionalVolta,double tempoDescarga,double tempoCarga,double distanciaPerIda ,double distanciaPerVolta, double jornada, double tempoDiario,double  diasUteis, double manutencao, String tipo, double quantidadeCarga){
-         this.chassis=chassis;
-        this.pesoBruto=pesoBruto;
-        this.roboque=roboque;
-        this.outrosEquipamentos=outrosEquipamentos;
-        this.velocidadeOperacionalIda=velocidadeOperacionalIda;
-        this.velocidadeOperacionalVolta=chassis;
+    private int resultadoH2 = 0;
 
-        this.tempoDescarga=tempoDescarga;
-        this.tempoCarga=tempoCarga;
-        this.distanciaPerIda=distanciaPerIda;
-        this.distanciaPerVolta=distanciaPerVolta;
-        this.jornada=jornada;
-        this.tempoDiario=tempoDiario;
-        this.diasUteis=diasUteis;
-        this.manutencao=manutencao;
-
-        this.tipo=tipo;
-        this.quantidadeCarga=quantidadeCarga;
+    public Dados(double chassi, double pesoBruto, double reboque, double outrosEqui,
+            double velOperacionalIda, double velOperacionalVolta, double tempoD, double tempoC, double distanciaPerIda,
+            double distanciaPerVolta, double jornada, double tDiario, double diasUteis, double manutencao, String tipo,
+            double qntd) {
+        this.chassi = chassi;
+        this.pesoBruto = pesoBruto;
+        this.reboque = reboque;
+        this.outrosEqui = outrosEqui;
+        this.velOperacionalIda = velOperacionalIda;
+        this.velOperacionalVolta = velOperacionalVolta;
+        this.tempoD = tempoD;
+        this.tempoC = tempoC;
+        this.distanciaPerIda = distanciaPerIda;
+        this.distanciaPerVolta = distanciaPerVolta;
+        this.jornada = jornada;
+        this.tDiario = tDiario;
+        this.diasUteis = diasUteis;
+        this.manutencao = manutencao;
+        this.tipo = tipo;
+        this.qntd = qntd;
     }
 
-    public void contas(){
-        
-       
-
-        double pesoTotal = chassis + roboque + outrosEquipamentos;
-
+    public void contas() {
+        double pesoTotal = chassi + reboque + outrosEqui;
         double cargaUtil = pesoBruto - pesoTotal;
-
-        double viagensMensais = quantidadeCarga / 30;
-
-        double tempoIda = distanciaPerIda / velocidadeOperacionalIda * 60;
-        double tempoVolta = distanciaPerVolta / velocidadeOperacionalVolta * 60;
-
-        double totalViagem = tempoIda + tempoVolta + tempoDescarga + tempoCarga;
-
-        double tempoDiaOperacao = tempoDiario + jornada;
-
+        double viagensMensais = qntd / 30;
+        double tempoIda = distanciaPerIda / velOperacionalIda * 60;
+        double tempoVolta = distanciaPerVolta / velOperacionalVolta * 60;
+        double totalViagem = tempoIda + tempoVolta + tempoD + tempoC;
+        double tempoDiaOperacao = tDiario * jornada * 60;
         double viagensDia = tempoDiaOperacao / totalViagem;
+        double diasDisponiveiMes = diasUteis - manutencao;
+        double viagensMensaisVeiculo = viagensDia * diasDisponiveiMes;
+        double frotaNecessaria = Math.ceil(viagensMensais / viagensMensaisVeiculo);
 
-        double diasDisponiveisMes= diasUteis - manutencao;
-
-        double viagensMensaisVeiculo = viagensDia * viagensMensais;
-
-        double frotaNecessaria = viagensMensais /viagensMensaisVeiculo;
-        
-
-         System.out.println(frotaNecessaria);
+        System.out.println("Peso total: " + pesoTotal);
+        System.out.println("Carga útil: " + cargaUtil);
+        System.out.println("Viagens Mensais: " + viagensMensais);
+        System.out.println("Tempo de ida: " + tempoIda);
+        System.out.println("Tempo de volta: " + tempoVolta);
+        System.out.println("Total da viagem: " + totalViagem);
+        System.out.println("Tempo Diario de operação : " + tempoDiaOperacao);
+        System.out.println("Número de viagens de um veículo por dia : " + viagensDia);
+        System.out.println("Calculo do número total de dias disponíveis por mês: " + diasDisponiveiMes);
+        System.out.println("Número de viagens mensais de um veículo: " + viagensMensaisVeiculo);
+        System.out.println("Tipo da carga: " + tipo);
+        System.out.println("Frota Necessária: " + frotaNecessaria);
     }
-
 
 }
